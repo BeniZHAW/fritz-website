@@ -1,0 +1,187 @@
+---
+import { Picture } from 'astro:assets';
+import heroImage from '../../assets/images/hero-dose-zutaten.jpg';
+---
+
+<section class="hero" data-hero aria-labelledby="hero-title">
+  <div class="hero__media" data-hero-media>
+    <Picture
+      src={heroImage}
+      formats={['avif', 'webp']}
+      widths={[768, 1280, 1920]}
+      sizes="100vw"
+      alt="FRITZ Paprika-Dose zwischen Kartoffeln, Basilikum, Peperoni und Knoblauch"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="hero__shade" aria-hidden="true"></div>
+
+  <div class="hero__content container" data-hero-content>
+    <span class="eyebrow">Das Paprika-Gewürz aus Muri</span>
+    <h1 id="hero-title" class="hero__title">Machs besser.</h1>
+    <p class="hero__lead">
+      Das Gewürz für Pommes und alles, was danach kommt. Natürlich, von Hand gemacht in Muri, in der Dose fürs
+      Leben.
+    </p>
+    <div class="hero__actions">
+      <a href="#bestellen" class="btn btn--primary">Jetzt bestellen</a>
+      <button type="button" class="btn btn--ghost" data-add-to-cart="nachfueller" data-then="checkout">
+        Nachfüllen für CHF 8.–
+      </button>
+    </div>
+  </div>
+
+  <a href="#gruende" class="hero__scroll" aria-label="Weiter zu den Gründen">
+    <span></span>
+  </a>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    display: grid;
+    align-items: end;
+    min-height: 100svh;
+    padding-block: calc(var(--header-h) + var(--space-7)) var(--space-9);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .hero__media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 40%;
+  }
+
+  .hero__shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(to top, rgb(11 11 11 / 0.95) 5%, rgb(11 11 11 / 0.35) 45%, transparent 70%),
+      linear-gradient(to right, rgb(11 11 11 / 0.6), transparent 55%);
+  }
+
+  .hero__content {
+    display: grid;
+    gap: var(--space-5);
+    justify-items: start;
+  }
+
+  .hero__title {
+    font-size: var(--text-3xl);
+    color: var(--color-yellow);
+    text-shadow: 0 6px 30px rgb(0 0 0 / 0.5);
+  }
+
+  .hero__lead {
+    max-width: 30em;
+    font-size: var(--text-lg);
+    color: var(--color-text);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-2);
+  }
+
+  .hero__scroll {
+    position: absolute;
+    left: 50%;
+    bottom: var(--space-5);
+    width: 26px;
+    height: 42px;
+    margin-left: -13px;
+    border: 2px solid rgb(255 255 255 / 0.6);
+    border-radius: 14px;
+  }
+
+  .hero__scroll span {
+    position: absolute;
+    left: 50%;
+    top: 8px;
+    width: 4px;
+    height: 8px;
+    margin-left: -2px;
+    border-radius: 2px;
+    background: var(--color-yellow);
+    animation: scroll-hint 1.8s var(--ease-out) infinite;
+  }
+
+  @keyframes scroll-hint {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    80% {
+      transform: translateY(14px);
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  /* Desktop: Dose nach rechts schieben, damit Titel und Dose sich nicht ueberlagern */
+  @media (min-width: 861px) {
+    .hero__media {
+      left: 28%;
+    }
+
+    .hero__media::after {
+      content: '';
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 30%;
+      background: linear-gradient(to right, var(--color-bg), transparent);
+    }
+  }
+
+  @media (max-width: 860px) {
+    .hero {
+      align-items: end;
+    }
+
+    /* Handy: Bild oben, ganze Dose sichtbar, Text darunter */
+    .hero__media {
+      bottom: auto;
+      height: 56svh;
+    }
+
+    .hero__media::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 40%;
+      background: linear-gradient(to top, var(--color-bg), transparent);
+    }
+
+    .hero__media :global(img) {
+      object-position: 50% 30%;
+    }
+
+    .hero__shade {
+      display: none;
+    }
+
+    .hero__scroll {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll span {
+      animation: none;
+    }
+  }
+</style>

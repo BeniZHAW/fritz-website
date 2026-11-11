@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo-fritz.png';
+import { LEGAL_NAV, NAV, SITE } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <Image src={logo} alt="FRITZ Paprika" width={88} height={88} />
+      <p>Das Allrounder-Paprikagewürz.<br />Von Hand gemacht in Muri AG.</p>
+    </div>
+
+    <nav aria-label="Fusszeile">
+      <h2 class="site-footer__title">Entdecken</h2>
+      <ul>
+        <li><a href={SITE.orderAnchor}>Bestellen</a></li>
+        {NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div>
+      <h2 class="site-footer__title">Kontakt</h2>
+      <ul>
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li>{SITE.location}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="site-footer__title">Bezahlen</h2>
+      <p class="site-footer__muted">TWINT – den Link erhältst du mit der Bestellbestätigung per E-Mail.</p>
+    </div>
+  </div>
+
+  <div class="container site-footer__bottom">
+    <p>© {year} FRITZ Gewürze · Preise inkl. MwSt.</p>
+    <ul>
+      {LEGAL_NAV.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding-block: var(--space-9) var(--space-6);
+    background: var(--color-bg-alt);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+    gap: var(--space-7);
+  }
+
+  .site-footer__brand {
+    display: grid;
+    gap: var(--space-4);
+    color: var(--color-text-muted);
+  }
+
+  .site-footer__title {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--color-yellow);
+  }
+
+  ul {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--color-text);
+  }
+
+  a:hover {
+    color: var(--color-yellow);
+  }
+
+  .site-footer__muted {
+    color: var(--color-text-muted);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-subtle);
+  }
+
+  .site-footer__bottom a {
+    color: var(--color-text-subtle);
+  }
+
+  @media (max-width: 860px) {
+    .site-footer {
+      /* Platz fuer die Bestell-Leiste */
+      padding-bottom: calc(var(--space-10) + env(safe-area-inset-bottom));
+    }
+
+    .site-footer__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .site-footer__brand {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

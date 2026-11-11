@@ -1,0 +1,22 @@
+{
+  "name": "fritz-website",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Webseite von FRITZ – das Paprika-Gewürz aus Muri",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "images": "pwsh -NoProfile -File scripts/prepare-images.ps1"
+  },
+  "dependencies": {
+    "astro": "^7.4.10",
+    "gsap": "^3.15.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.12",
+    "typescript": "^6.0.3"
+  }
+}

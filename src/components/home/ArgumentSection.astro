@@ -1,0 +1,119 @@
+---
+/**
+ * Ein Verkaufsargument: Bild auf der einen, Text auf der anderen Seite.
+ * Die Seiten wechseln pro Argument (mediaSide). Auf dem Handy steht das Bild oben.
+ * Die Einflug-Animationen steuert src/scripts/home-animations.ts ueber die data-Attribute.
+ */
+interface Props {
+  id: string;
+  index: number;
+  eyebrow: string;
+  title: string;
+  mediaSide: 'left' | 'right';
+  /** Abschnitt bleibt beim Scrollen stehen (Nachfuell-Sequenz). */
+  pinned?: boolean;
+  tone?: 'default' | 'alt';
+}
+
+const { id, index, eyebrow, title, mediaSide, pinned = false, tone = 'default' } = Astro.props;
+const textFrom = mediaSide === 'left' ? 'right' : 'left';
+---
+
+<section
+  id={id}
+  class:list={['argument', `argument--media-${mediaSide}`, `argument--${tone}`, { 'argument--pinned': pinned }]}
+  aria-labelledby={`${id}-title`}
+  data-argument={index}
+  data-pin={pinned ? 'true' : undefined}
+>
+  <div class="argument__inner container">
+    <div class="argument__media" data-media data-reveal-from={mediaSide}>
+      <slot name="media" />
+    </div>
+    <div class="argument__text" data-reveal-from={textFrom}>
+      <span class="eyebrow">{String(index).padStart(2, '0')} · {eyebrow}</span>
+      <h2 id={`${id}-title`} class="argument__title">{title}</h2>
+      <div class="argument__body">
+        <slot />
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .argument {
+    position: relative;
+    padding-block: var(--section-y);
+    overflow: clip;
+  }
+
+  .argument--alt {
+    background: var(--color-bg-alt);
+  }
+
+  .argument--pinned {
+    display: grid;
+    align-items: center;
+    min-height: 100svh;
+    padding-block: calc(var(--header-h-compact) + var(--space-5)) var(--space-6);
+  }
+
+  .argument__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(var(--space-6), 6vw, var(--space-9));
+  }
+
+  .argument--media-right .argument__media {
+    order: 2;
+  }
+
+  .argument__text {
+    display: grid;
+    gap: var(--space-5);
+    align-content: center;
+  }
+
+  .argument__title {
+    font-size: var(--text-2xl);
+    color: var(--color-yellow);
+  }
+
+  .argument__body {
+    display: grid;
+    gap: var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+  }
+
+  .argument__body :global(strong) {
+    color: var(--color-text);
+  }
+
+  .argument__media {
+    position: relative;
+  }
+
+  @media (max-width: 860px) {
+    .argument__inner {
+      grid-template-columns: 1fr;
+    }
+
+    .argument--media-right .argument__media {
+      order: 0;
+    }
+
+    .argument--pinned {
+      align-items: start;
+    }
+
+    .argument--pinned .argument__inner {
+      gap: var(--space-4);
+    }
+
+    .argument--pinned .argument__text {
+      gap: var(--space-3);
+    }
+  }
+</style>

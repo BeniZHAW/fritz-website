@@ -1,0 +1,80 @@
+/*
+ * Design-Tokens FRITZ. Alle Farben, Schriften und Abstaende kommen von hier.
+ * Werte vorerst von pommes-fritz.ch uebernommen; Styleguide folgt.
+ */
+
+@font-face {
+  font-family: 'Rushcaps';
+  src: url('/fonts/Rushcaps-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Farben */
+  --color-bg: #0b0b0b;
+  --color-bg-alt: #141210;
+  --color-surface: #1c1916;
+  --color-surface-raised: #26221e;
+  --color-border: #332d27;
+  --color-text: #ffffff;
+  --color-text-muted: #bbbbbb;
+  --color-text-subtle: #8a847d;
+  --color-yellow: #ffd600;
+  --color-yellow-strong: #e6b800;
+  --color-orange: #e85d2f;
+  --color-red: #c8322a;
+  --color-brown: #45362f;
+  --color-kraft: #c49a6c;
+  --color-paprika: #b8411f;
+  --color-success: #7bd88f;
+  --color-danger: #ff6b5b;
+  --color-on-yellow: #0b0b0b;
+
+  /* Schriften */
+  --font-display: 'Rushcaps', 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Helvetica Neue', Helvetica, Inter, Arial, sans-serif;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.0625rem;
+  --text-lg: 1.25rem;
+  --text-xl: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
+  --text-2xl: clamp(2.25rem, 1.6rem + 2.6vw, 3.75rem);
+  --text-3xl: clamp(3rem, 2rem + 5vw, 6.5rem);
+
+  --leading-tight: 1.05;
+  --leading-normal: 1.55;
+
+  /* Abstaende */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+  --section-y: clamp(var(--space-8), 10vw, var(--space-10));
+  --gutter: clamp(var(--space-4), 4vw, var(--space-7));
+
+  /* Layout */
+  --container: 1200px;
+  --header-h: 76px;
+  --header-h-compact: 60px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* Effekte */
+  --shadow-card: 0 20px 50px rgb(0 0 0 / 0.45);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration: 250ms;
+  --z-header: 50;
+  --z-bar: 40;
+  --z-toast: 60;
+}

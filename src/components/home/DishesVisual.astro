@@ -1,0 +1,113 @@
+---
+/**
+ * Argument 4: drei Gerichte fliegen gestaffelt herein und faechern sich auf.
+ * Prototyp: typografische Karten. Shooting liefert Fotos (Hochformat 4:5).
+ */
+const dishes = [
+  { name: 'Pommes', note: 'Das Original', hue: 'pommes' },
+  { name: 'Poulet', note: 'Vom Grill oder aus dem Ofen', hue: 'poulet' },
+  { name: 'Raclette', note: 'Über den Käse, fertig', hue: 'raclette' },
+];
+---
+
+<div class="dishes" data-dishes>
+  <span class="placeholder-badge">Fotos folgen</span>
+  {
+    dishes.map((dish, i) => (
+      <article class:list={['dish', `dish--${dish.hue}`]} data-dish={i}>
+        <span class="dish__shaker" aria-hidden="true" />
+        <h3 class="dish__name">{dish.name}</h3>
+        <p class="dish__note">{dish.note}</p>
+      </article>
+    ))
+  }
+</div>
+
+<style>
+  .dishes {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    padding-top: var(--space-7);
+  }
+
+  .dish {
+    position: relative;
+    display: grid;
+    align-content: end;
+    gap: var(--space-1);
+    aspect-ratio: 4 / 5;
+    padding: var(--space-4);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .dish:nth-child(3) {
+    translate: 0 -12%;
+  }
+
+  .dish--pommes {
+    background:
+      radial-gradient(circle at 70% 25%, rgb(255 214 0 / 0.55), transparent 55%),
+      linear-gradient(160deg, #f2b33d, #a8571b);
+  }
+
+  .dish--poulet {
+    background:
+      radial-gradient(circle at 30% 30%, rgb(255 180 120 / 0.5), transparent 55%),
+      linear-gradient(160deg, #d9783a, #6d2a14);
+  }
+
+  .dish--raclette {
+    background:
+      radial-gradient(circle at 60% 30%, rgb(255 240 190 / 0.55), transparent 55%),
+      linear-gradient(160deg, #e8c66a, #8a5a1e);
+  }
+
+  /* gestreutes Gewuerz */
+  .dish__shaker {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, #8f2a12 1.5px, transparent 2px),
+      radial-gradient(circle, #c84a1e 1px, transparent 1.5px);
+    background-size:
+      22px 26px,
+      15px 17px;
+    background-position:
+      0 0,
+      7px 9px;
+    opacity: 0.45;
+    mask-image: radial-gradient(circle at 50% 35%, #000 20%, transparent 65%);
+  }
+
+  .dish__name {
+    position: relative;
+    font-size: var(--text-xl);
+    color: var(--color-text);
+    text-shadow: 0 2px 12px rgb(0 0 0 / 0.5);
+  }
+
+  .dish__note {
+    position: relative;
+    font-size: var(--text-xs);
+    color: rgb(255 255 255 / 0.85);
+  }
+
+  @media (max-width: 860px) {
+    .dishes {
+      gap: var(--space-2);
+    }
+
+    .dish {
+      padding: var(--space-3);
+    }
+
+    .dish__note {
+      display: none;
+    }
+  }
+</style>

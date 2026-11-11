@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../config/site';
+---
+
+<BaseLayout title="Verkaufsstellen" description="Wo du FRITZ kaufen kannst: online und bei unseren Verkaufsstellen.">
+  <PageHero
+    eyebrow="Verkaufsstellen"
+    title="Hier gibts FRITZ."
+    lead="Die Liste unserer Verkaufsstellen und Märkte mit Karte ist in Arbeit."
+  />
+
+  <section class="container stores">
+    <div class="stores__card">
+      <h2 class="stores__title">Online, jederzeit</h2>
+      <p>Bestell direkt hier. Ab 2 Dosen und für Nachfüller ist der Versand gratis.</p>
+      <a href={SITE.orderAnchor} class="btn btn--primary">Jetzt bestellen</a>
+    </div>
+    <div class="stores__card stores__card--muted">
+      <h2 class="stores__title">Du verkaufst FRITZ gerne?</h2>
+      <p>Läden, Hofläden und Gastro melden sich unter <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .stores {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-5);
+    padding-block: var(--section-y);
+  }
+
+  .stores__card {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .stores__card--muted {
+    background: transparent;
+    border-style: dashed;
+  }
+
+  .stores__title {
+    font-size: var(--text-xl);
+    color: var(--color-yellow);
+  }
+
+  .stores__card a:not(.btn) {
+    color: var(--color-yellow);
+  }
+</style>

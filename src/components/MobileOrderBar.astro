@@ -1,0 +1,129 @@
+---
+import { SITE } from '../config/site';
+
+interface Props {
+  isHome: boolean;
+}
+
+const { isHome } = Astro.props;
+---
+
+<div class="order-bar" data-order-bar data-home={isHome ? 'true' : 'false'} aria-hidden="true">
+  <div class="order-bar__info">
+    <strong data-order-bar-title>FRITZ ab CHF 8.–</strong>
+    <span data-order-bar-hint>Gratisversand ab 2 Dosen</span>
+  </div>
+  <a href={SITE.orderAnchor} class="btn btn--primary btn--small" tabindex="-1">
+    Bestellen
+    <span class="order-bar__count" data-cart-count hidden>0</span>
+  </a>
+</div>
+
+<script>
+  import { calcTotals, formatCHF, freeShippingHint } from '../config/shop';
+  import { getCart, onCartChange } from '../scripts/cart';
+
+  const bar = document.querySelector<HTMLElement>('[data-order-bar]');
+  const title = bar?.querySelector<HTMLElement>('[data-order-bar-title]');
+  const hint = bar?.querySelector<HTMLElement>('[data-order-bar-hint]');
+  const link = bar?.querySelector<HTMLAnchorElement>('a');
+
+  const render = () => {
+    const cart = getCart();
+    const totals = calcTotals(cart);
+    if (!title || !hint) return;
+    if (totals.itemCount === 0) {
+      title.textContent = 'FRITZ ab CHF 8.–';
+      hint.textContent = 'Gratisversand ab 2 Dosen';
+    } else {
+      title.textContent = `Total ${formatCHF(totals.total)}`;
+      hint.textContent = freeShippingHint(cart) ?? '';
+    }
+  };
+
+  const setVisible = (visible: boolean) => {
+    bar?.classList.toggle('is-visible', visible);
+    bar?.setAttribute('aria-hidden', String(!visible));
+    link?.setAttribute('tabindex', visible ? '0' : '-1');
+  };
+
+  render();
+  onCartChange(render);
+
+  if (bar?.dataset.home === 'true') {
+    // Startseite: erst nach dem Hero zeigen, beim Formular wieder ausblenden.
+    const hero = document.querySelector('[data-hero]');
+    const order = document.getElementById('bestellen');
+    let heroVisible = true;
+    let orderVisible = false;
+    const update = () => setVisible(!heroVisible && !orderVisible);
+    const io = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.target === hero) heroVisible = entry.isIntersecting;
+        if (entry.target === order) orderVisible = entry.isIntersecting;
+      }
+      update();
+    });
+    if (hero) io.observe(hero);
+    if (order) io.observe(order);
+  } else {
+    setVisible(true);
+  }
+</script>
+
+<style>
+  .order-bar {
+    display: none;
+  }
+
+  @media (max-width: 860px) {
+    .order-bar {
+      position: fixed;
+      inset: auto var(--space-3) calc(var(--space-3) + env(safe-area-inset-bottom));
+      z-index: var(--z-bar);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-3) var(--space-3) var(--space-5);
+      border-radius: var(--radius-pill);
+      background: rgb(28 25 22 / 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--color-border);
+      box-shadow: var(--shadow-card);
+      transform: translateY(150%);
+      transition: transform 400ms var(--ease-out);
+    }
+
+    .order-bar.is-visible {
+      transform: translateY(0);
+    }
+  }
+
+  .order-bar__info {
+    display: grid;
+    line-height: 1.25;
+    font-size: var(--text-sm);
+  }
+
+  .order-bar__info span {
+    color: var(--color-yellow);
+    font-size: var(--text-xs);
+  }
+
+  .order-bar__count {
+    display: inline-grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: var(--radius-pill);
+    background: var(--color-on-yellow);
+    color: var(--color-yellow);
+    font-size: var(--text-xs);
+  }
+
+  .order-bar__count[hidden] {
+    display: none;
+  }
+</style>

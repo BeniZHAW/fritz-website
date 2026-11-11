@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import TrustBar from '../components/home/TrustBar.astro';
+import ArgumentSection from '../components/home/ArgumentSection.astro';
+import IngredientsVisual from '../components/home/IngredientsVisual.astro';
+import RefillAnimation from '../components/home/RefillAnimation.astro';
+import MuriVisual from '../components/home/MuriVisual.astro';
+import DishesVisual from '../components/home/DishesVisual.astro';
+import ProgressDots from '../components/home/ProgressDots.astro';
+import ProductCards from '../components/home/ProductCards.astro';
+import OrderForm from '../components/home/OrderForm.astro';
+import { PRODUCTS } from '../config/shop';
+import { SITE } from '../config/site';
+
+const argumentNav = [
+  { id: 'zutaten', label: 'Natürlich' },
+  { id: 'dose', label: 'Eine Dose' },
+  { id: 'muri', label: 'Aus Muri' },
+  { id: 'vielseitig', label: 'Vielseitig' },
+];
+
+const productJsonLd = PRODUCTS.map((p) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: p.name,
+  description: p.variant,
+  brand: { '@type': 'Brand', name: 'FRITZ' },
+  offers: {
+    '@type': 'Offer',
+    price: p.price.toFixed(2),
+    priceCurrency: 'CHF',
+    availability: 'https://schema.org/InStock',
+    url: new URL(SITE.orderAnchor, Astro.site).href,
+  },
+}));
+---
+
+<BaseLayout isHome>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(productJsonLd)} />
+
+  <Hero />
+  <TrustBar />
+  <ProgressDots items={argumentNav} />
+
+  <div id="gruende">
+    <ArgumentSection id="zutaten" index={1} eyebrow="Natürlich" title="Zum Lesen. Nicht zum Googeln." mediaSide="left">
+      <IngredientsVisual slot="media" />
+      <p><strong>Nur natürliche Zutaten. Keine künstlichen Zusatzstoffe.</strong></p>
+      <p>Du verstehst jede Zutat auf der Dose, ohne dein Handy zu zücken.</p>
+    </ArgumentSection>
+
+    <ArgumentSection
+      id="dose"
+      index={2}
+      eyebrow="Nachhaltig"
+      title="Eine Dose. Dein Leben lang."
+      mediaSide="right"
+      tone="alt"
+      pinned
+    >
+      <RefillAnimation slot="media" />
+      <div class="refill-intro" data-refill-intro>
+        <p>
+          Unsere hochwertige Alu-Dose kaufst du <strong>ein einziges Mal</strong>. Danach füllst du sie mit der
+          Nachfüllpackung wieder auf.
+        </p>
+        <p>Weniger Abfall, weniger Kosten, gleich viel FRITZ.</p>
+      </div>
+      <div class="refill-cta" data-refill-cta>
+        <p class="refill-cta__price">Nachfüllen für <strong>CHF 8.–</strong>, immer versandfrei.</p>
+        <button type="button" class="btn btn--primary" data-add-to-cart="nachfueller">Nachfüller in den Warenkorb</button>
+      </div>
+    </ArgumentSection>
+
+    <ArgumentSection id="muri" index={3} eyebrow="Regional" title="Gmacht in Muri." mediaSide="left">
+      <MuriVisual slot="media" />
+      <p>
+        FRITZ wird in <strong>Muri AG</strong> gemischt und abgefüllt. Mit viel Handarbeit, in kleinen Mengen,
+        damit jede Dose so schmeckt, wie sie soll.
+      </p>
+      <p><a href="/unsere-geschichte" class="link-arrow">Unsere Geschichte</a></p>
+    </ArgumentSection>
+
+    <ArgumentSection id="vielseitig" index={4} eyebrow="Vielseitig" title="Nicht nur für Pommes." mediaSide="right" tone="alt">
+      <DishesVisual slot="media" />
+      <p>
+        FRITZ ist als Pommes-Gewürz gestartet. Heute landet es auf <strong>Poulet, Kartoffeln, Raclette und Rührei</strong>.
+      </p>
+      <p>Ein Gewürz, das immer passt. Perfekt, wenn du gerade erst mit Kochen anfängst.</p>
+      <p><a href="/rezepte" class="link-arrow">Zu den Rezepten</a></p>
+    </ArgumentSection>
+  </div>
+
+  <ProductCards />
+  <OrderForm />
+</BaseLayout>
+
+<script>
+  import '../scripts/home-animations';
+</script>
+
+<style>
+  .refill-cta {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    border-radius: var(--radius-md);
+    background: rgb(255 214 0 / 0.08);
+    border: 1px solid rgb(255 214 0 / 0.35);
+  }
+
+  /* Mit Animation erscheint das Angebot an der Stelle des Intro-Texts (passt so aufs Handy) */
+  :global(.is-animated) .refill-intro,
+  :global(.is-animated) .refill-cta {
+    grid-area: 1 / 1;
+    align-self: start;
+  }
+
+  .refill-intro {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .refill-cta__price {
+    color: var(--color-text);
+  }
+
+  .refill-cta__price strong {
+    color: var(--color-yellow);
+  }
+</style>

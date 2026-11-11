@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { SITE } from '../config/site';
+
+const ideas = [
+  { name: 'Pommes', text: 'Direkt nach dem Frittieren drüber, solange sie noch heiss sind.' },
+  { name: 'Poulet', text: 'Vor dem Grillen oder Backen rundum einreiben.' },
+  { name: 'Raclette', text: 'Eine Prise über den geschmolzenen Käse.' },
+  { name: 'Ofenkartoffeln', text: 'Mit Öl und FRITZ mischen, ab in den Ofen.' },
+  { name: 'Rührei', text: 'Am Schluss über die Eier, fertig.' },
+  { name: 'Gemüse', text: 'Peperoni, Zucchetti oder Rüebli vom Blech.' },
+];
+---
+
+<BaseLayout title="Rezepte" description="Rezepte und Ideen mit FRITZ: Pommes, Poulet, Raclette, Kartoffeln, Rührei und mehr.">
+  <PageHero
+    eyebrow="Rezepte"
+    title="Wo FRITZ überall drauf passt."
+    lead="Hier entstehen bald Rezepte von uns und von euch. Bis dahin ein paar Ideen für den Start."
+  />
+
+  <section class="container ideas" aria-label="Ideen">
+    <ul class="ideas__grid">
+      {
+        ideas.map((idea) => (
+          <li class="idea">
+            <h2 class="idea__name">{idea.name}</h2>
+            <p>{idea.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="community">
+    <div class="container community__inner">
+      <span class="eyebrow">Bald hier</span>
+      <h2 class="community__title">Deine FRITZ-Rezepte.</h2>
+      <p class="lead">
+        Teile deine Rezepte und Erfahrungen mit FRITZ, stimme für die besten ab und kommentiere. Die Community ist in
+        Planung.
+      </p>
+      <a href={SITE.orderAnchor} class="btn btn--primary">FRITZ bestellen</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ideas {
+    padding-block: var(--section-y);
+  }
+
+  .ideas__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .idea {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border-radius: var(--radius-lg);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+  }
+
+  .idea__name {
+    font-size: var(--text-xl);
+    color: var(--color-yellow);
+  }
+
+  .community {
+    padding-block: var(--section-y);
+    background: var(--color-bg-alt);
+  }
+
+  .community__inner {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-4);
+  }
+
+  .community__title {
+    font-size: var(--text-2xl);
+    color: var(--color-yellow);
+  }
+</style>

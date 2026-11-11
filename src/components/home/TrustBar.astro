@@ -1,0 +1,92 @@
+---
+const items = [
+  'Dose CHF 11.–',
+  'Nachfüller CHF 8.–',
+  'Gratisversand ab 2 Dosen',
+  'Nachfüller immer versandfrei',
+  'Bezahlen mit TWINT',
+  'Von Hand gemacht in Muri AG',
+];
+---
+
+<div class="trust-bar">
+  <ul class="sr-only">
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+  <div class="trust-bar__track" aria-hidden="true">
+    {
+      [0, 1].map(() => (
+        <ul class="trust-bar__list">
+          {items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .trust-bar {
+    overflow: hidden;
+    background: var(--color-yellow);
+    color: var(--color-on-yellow);
+    font-weight: 700;
+    font-size: var(--text-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .trust-bar__track {
+    display: flex;
+    width: max-content;
+    animation: marquee 40s linear infinite;
+  }
+
+  .trust-bar:hover .trust-bar__track {
+    animation-play-state: paused;
+  }
+
+  .trust-bar__list {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .trust-bar__list li {
+    padding: var(--space-3) var(--space-5);
+    white-space: nowrap;
+  }
+
+  .trust-bar__list li::after {
+    content: '●';
+    margin-left: var(--space-5);
+    font-size: 0.6em;
+    vertical-align: middle;
+  }
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trust-bar__track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+      justify-content: center;
+    }
+
+    .trust-bar__list:last-child {
+      display: none;
+    }
+
+    .trust-bar__list {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+</style>

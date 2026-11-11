@@ -1,0 +1,179 @@
+---
+/**
+ * Argument 2: Nachfuellpackung wird aufgerissen und fuellt die Dose.
+ * Prototyp als SVG-Illustration. Die Zeitachse in src/scripts/home-animations.ts
+ * folgt dem Storyboard im Konzept; die Foto-Sequenz vom Shooting ersetzt spaeter nur diese Grafik.
+ * Ohne JavaScript oder mit "Bewegung reduzieren" bleibt die ruhige Ausgangslage stehen.
+ */
+---
+
+<div class="refill" data-refill>
+  <span class="placeholder-badge">Illustration · Foto-Sequenz folgt</span>
+  <svg viewBox="0 0 420 560" role="img" aria-labelledby="refill-svg-title" class="refill__svg">
+    <title id="refill-svg-title">Eine FRITZ-Nachfüllpackung wird aufgerissen und in die Dose geleert.</title>
+    <defs>
+      <linearGradient id="rf-metal" x1="0" x2="1" y1="0" y2="0">
+        <stop offset="0" stop-color="#6b6b6b"></stop>
+        <stop offset="0.28" stop-color="#e2e2e2"></stop>
+        <stop offset="0.55" stop-color="#9d9d9d"></stop>
+        <stop offset="0.85" stop-color="#ececec"></stop>
+        <stop offset="1" stop-color="#777"></stop>
+      </linearGradient>
+      <linearGradient id="rf-label" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0" stop-color="#f9a72b"></stop>
+        <stop offset="0.5" stop-color="#ee6a2b"></stop>
+        <stop offset="1" stop-color="#c8322a"></stop>
+      </linearGradient>
+      <linearGradient id="rf-sticker" x1="0" x2="1" y1="0" y2="1">
+        <stop offset="0" stop-color="#f28c2b"></stop>
+        <stop offset="1" stop-color="#e2462c"></stop>
+      </linearGradient>
+      <pattern id="rf-spice" width="10" height="10" patternUnits="userSpaceOnUse">
+        <rect width="10" height="10" fill="#a83a1c"></rect>
+        <circle cx="2" cy="3" r="1.3" fill="#d4572a"></circle>
+        <circle cx="7" cy="7" r="1.1" fill="#7a2a14"></circle>
+        <circle cx="6" cy="2" r="0.8" fill="#5d6b2a"></circle>
+        <circle cx="3" cy="8" r="0.7" fill="#e07a3a"></circle>
+      </pattern>
+      <clipPath id="rf-can-clip">
+        <rect x="140" y="300" width="140" height="220" rx="8"></rect>
+      </clipPath>
+      <filter id="rf-shadow" x="-30%" y="-30%" width="160%" height="160%">
+        <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity="0.6"></feDropShadow>
+      </filter>
+    </defs>
+
+    <!-- Lichtkegel -->
+    <ellipse cx="210" cy="528" rx="150" ry="18" fill="#000" opacity="0.6"></ellipse>
+    <ellipse cx="210" cy="300" rx="190" ry="250" fill="#ffd600" opacity="0.04"></ellipse>
+
+    <!-- Dose -->
+    <g filter="url(#rf-shadow)">
+      <rect x="140" y="296" width="140" height="228" rx="10" fill="url(#rf-metal)"></rect>
+      <g clip-path="url(#rf-can-clip)">
+        <rect data-refill-fill x="140" y="520" width="140" height="0" fill="url(#rf-spice)"></rect>
+      </g>
+      <g data-refill-label>
+        <rect x="140" y="318" width="140" height="186" fill="url(#rf-label)"></rect>
+        <path d="M140 470 L280 360 L280 400 L140 504 Z" fill="#ffd600" opacity="0.14"></path>
+        <g transform="rotate(-16 210 405)">
+          <text
+            x="210"
+            y="410"
+            text-anchor="middle"
+            class="refill__brand"
+            fill="#ffd600"
+            stroke="#45362f"
+            stroke-width="7"
+            paint-order="stroke"
+            stroke-linejoin="round">FRITZ</text
+          >
+          <text x="216" y="434" text-anchor="middle" class="refill__variant" fill="#fff">PAPRIKA</text>
+        </g>
+      </g>
+      <rect x="140" y="504" width="140" height="18" rx="6" fill="url(#rf-metal)"></rect>
+      <ellipse cx="210" cy="300" rx="70" ry="12" fill="#1a1512"></ellipse>
+      <ellipse data-refill-top cx="210" cy="300" rx="66" ry="10" fill="url(#rf-spice)" opacity="0"></ellipse>
+      <ellipse cx="210" cy="300" rx="70" ry="12" fill="none" stroke="#d9d9d9" stroke-width="3"></ellipse>
+    </g>
+
+    <!-- Rieselstrahl -->
+    <g data-refill-stream opacity="0">
+      <path d="M216 196 Q214 250 210 304" stroke="#b8411f" stroke-width="8" fill="none" stroke-linecap="round" stroke-dasharray="2 9"></path>
+      <path d="M220 200 Q219 252 214 302" stroke="#e07a3a" stroke-width="4" fill="none" stroke-linecap="round" stroke-dasharray="1 13"></path>
+      <path d="M212 198 Q208 250 205 300" stroke="#7a2a14" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="1 11"></path>
+    </g>
+
+    <!-- Nachfuellpackung (Ursprung = Mitte der Oberkante) -->
+    <g data-refill-bag transform="translate(70 330)" filter="url(#rf-shadow)">
+      <path d="M-65 22 L-65 178 Q-65 190 -53 190 L53 190 Q65 190 65 178 L65 22 L58 16 L50 22 L42 16 L34 22 L26 16 L18 22 L10 16 L2 22 L-6 16 L-14 22 L-22 16 L-30 22 L-38 16 L-46 22 L-54 16 Z" fill="#c49a6c"></path>
+      <path d="M-65 34 H65" stroke="#a87f55" stroke-width="2"></path>
+      <rect x="-48" y="118" width="96" height="48" rx="4" fill="url(#rf-spice)"></rect>
+      <rect x="-48" y="118" width="96" height="48" rx="4" fill="#fff" opacity="0.12"></rect>
+      <circle cx="0" cy="76" r="30" fill="url(#rf-sticker)"></circle>
+      <text x="0" y="82" text-anchor="middle" class="refill__sticker" fill="#ffd600" stroke="#45362f" stroke-width="3" paint-order="stroke" transform="rotate(-12 0 78)">FRITZ</text>
+      <!-- Abreisslasche -->
+      <g data-refill-strip>
+        <path d="M-65 0 L65 0 L65 22 L58 16 L50 22 L42 16 L34 22 L26 16 L18 22 L10 16 L2 22 L-6 16 L-14 22 L-22 16 L-30 22 L-38 16 L-46 22 L-54 16 L-65 22 Z" fill="#b88d60"></path>
+        <circle cx="-56" cy="8" r="2.5" fill="#8a6a48"></circle>
+      </g>
+    </g>
+
+    <!-- Deckel -->
+    <g data-refill-lid>
+      <rect x="135" y="272" width="150" height="34" rx="8" fill="url(#rf-metal)"></rect>
+      <ellipse cx="210" cy="273" rx="75" ry="11" fill="#d6d6d6"></ellipse>
+    </g>
+  </svg>
+
+  <div class="refill__gauge" aria-hidden="true">
+    <span class="refill__grams" data-refill-grams>110</span>
+    <span class="refill__unit">g</span>
+  </div>
+</div>
+
+<style>
+  .refill {
+    position: relative;
+    max-width: 520px;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .refill__svg {
+    width: 100%;
+    height: auto;
+    max-height: 70svh;
+    margin-inline: auto;
+    overflow: visible;
+  }
+
+  .refill__brand {
+    font-family: var(--font-display);
+    font-size: 46px;
+  }
+
+  .refill__variant {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 2px;
+  }
+
+  .refill__sticker {
+    font-family: var(--font-display);
+    font-size: 20px;
+  }
+
+  .refill__gauge {
+    position: absolute;
+    right: 4%;
+    bottom: 8%;
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-1);
+    font-family: var(--font-display);
+    color: var(--color-yellow);
+  }
+
+  .refill__grams {
+    font-size: var(--text-2xl);
+    font-variant-numeric: tabular-nums;
+    min-width: 2.2ch;
+    text-align: right;
+  }
+
+  .refill__unit {
+    font-size: var(--text-xl);
+  }
+
+  @media (max-width: 860px) {
+    .refill__svg {
+      max-height: 34svh;
+    }
+
+    .refill__gauge {
+      bottom: 2%;
+    }
+  }
+</style>

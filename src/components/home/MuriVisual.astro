@@ -1,0 +1,61 @@
+---
+/**
+ * Argument 3: Gmacht in Muri. Bild wird beim Scrollen von unscharf zu scharf.
+ * Prototyp: Stimmungsbild Dosen + Nachfueller. Shooting liefert Haende beim Abfuellen.
+ */
+import { Image } from 'astro:assets';
+import muri from '../../assets/images/stimmung-dosen-nachfueller-hoch.jpg';
+---
+
+<figure class="muri" data-muri>
+  <span class="placeholder-badge">Platzhalter · Shooting Muri</span>
+  <Image
+    src={muri}
+    alt="FRITZ Dosen und Nachfüllpackungen im Licht"
+    widths={[480, 800, 1200]}
+    sizes="(max-width: 860px) 100vw, 45vw"
+    data-muri-img
+  />
+  <figcaption class="muri__caption">
+    <span class="muri__pin" aria-hidden="true">●</span> Muri AG
+  </figcaption>
+</figure>
+
+<style>
+  .muri {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    aspect-ratio: 4 / 5;
+    box-shadow: var(--shadow-card);
+  }
+
+  .muri :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .muri__caption {
+    position: absolute;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill);
+    background: var(--color-yellow);
+    color: var(--color-on-yellow);
+    font-weight: 700;
+    font-size: var(--text-sm);
+  }
+
+  .muri__pin {
+    color: var(--color-orange);
+  }
+
+  @media (max-width: 860px) {
+    .muri {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import teamImg from '../assets/images/team-person-dose.jpg';
+import { SITE } from '../config/site';
+
+const chapters = [
+  {
+    step: 'Die Rezeptur',
+    title: 'Ein Vater sucht ein Pommes-Gewürz.',
+    text: 'Noahs Vater fand kein gutes Pommes-frites-Gewürz mehr. Also hat er selbst getüftelt, so lange, bis die Mischung genau stimmte.',
+  },
+  {
+    step: 'Die Jahre am Familientisch',
+    title: 'Namenlos, aber unverzichtbar.',
+    text: 'Über mehrere Jahre stand das Gewürz ohne Namen in der Küche der Familie und kam auf alles, was aus der Fritteuse kam. Und bald auch auf vieles andere.',
+  },
+  {
+    step: 'Die Idee',
+    title: 'Zu gut, um in einer Küche zu bleiben.',
+    text: 'Noah fand, dass das Gewürz mehr Aufmerksamkeit verdient. Er holte seine Jugendfreunde Cyrill und Beni an Bord.',
+  },
+  {
+    step: 'FRITZ',
+    title: 'Aus dem Pommes-Gewürz wird FRITZ.',
+    text: 'Gemeinsam haben wir dem Gewürz einen Namen, ein Gesicht und eine Marke gegeben: FRITZ, das Allrounder-Paprikagewürz. Jung, frisch und ein bisschen frech.',
+  },
+];
+---
+
+<BaseLayout
+  title="Unsere Geschichte"
+  description="Wie aus dem Pommes-Gewürz von Noahs Vater FRITZ wurde: das Allrounder-Paprikagewürz aus Muri AG."
+>
+  <PageHero
+    eyebrow="Unsere Geschichte"
+    title="Vom Familienrezept zu FRITZ."
+    lead="Angefangen hat alles mit einem Vater, der kein gutes Pommes-Gewürz mehr fand."
+  />
+
+  <section class="story container" aria-label="Die Geschichte in vier Kapiteln">
+    <ol class="timeline">
+      {
+        chapters.map((c, i) => (
+          <li class="chapter">
+            <span class="chapter__num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <span class="eyebrow">{c.step}</span>
+            <h2 class="chapter__title">{c.title}</h2>
+            <p>{c.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <figure class="story__photo">
+      <span class="placeholder-badge">Platzhalter · Teamfotos folgen</span>
+      <Image src={teamImg} alt="FRITZ-Dose, in die Kamera gehalten" widths={[400, 800, 1200]} sizes="(max-width: 860px) 100vw, 40vw" />
+    </figure>
+  </section>
+
+  <section class="team">
+    <div class="container team__inner">
+      <h2 class="team__title">Die Köpfe hinter FRITZ</h2>
+      <ul class="team__list">
+        <li><span class="team__avatar" aria-hidden="true">N</span><strong>Noah</strong></li>
+        <li><span class="team__avatar" aria-hidden="true">C</span><strong>Cyrill</strong></li>
+        <li><span class="team__avatar" aria-hidden="true">B</span><strong>Beni</strong></li>
+      </ul>
+      <p class="team__note">Porträts und Rollen folgen nach dem Shooting.</p>
+      <a href={SITE.orderAnchor} class="btn btn--primary">FRITZ probieren</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .story {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: var(--space-9);
+    align-items: start;
+    padding-block: var(--section-y);
+  }
+
+  .timeline {
+    display: grid;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-left: 2px solid var(--color-border);
+  }
+
+  .chapter {
+    position: relative;
+    display: grid;
+    gap: var(--space-3);
+    padding-left: var(--space-7);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .chapter__num {
+    position: absolute;
+    left: -19px;
+    top: 0;
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--color-yellow);
+    color: var(--color-on-yellow);
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+  }
+
+  .chapter__title {
+    font-size: var(--text-xl);
+    color: var(--color-text);
+  }
+
+  .story__photo {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-5));
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+  }
+
+  .team {
+    padding-block: var(--section-y);
+    background: var(--color-bg-alt);
+    text-align: center;
+  }
+
+  .team__inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-6);
+  }
+
+  .team__title {
+    font-size: var(--text-2xl);
+    color: var(--color-yellow);
+  }
+
+  .team__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-7);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .team__list li {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .team__avatar {
+    display: grid;
+    place-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 2px dashed var(--color-yellow);
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    color: var(--color-yellow);
+  }
+
+  .team__note {
+    color: var(--color-text-subtle);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 860px) {
+    .story {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+
+    .story__photo {
+      position: relative;
+      top: 0;
+    }
+  }
+</style>
