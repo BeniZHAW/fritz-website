@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import doseImg from '../../assets/images/produkt-dose.jpg';
 import nachfuellerImg from '../../assets/images/produkt-nachfueller.jpg';
+import { withBase } from '../../config/site';
 import { MAX_QTY_PER_PRODUCT, PRODUCTS, formatCHF, type ProductId } from '../../config/shop';
 
 const thumbs: Record<ProductId, ImageMetadata> = { dose: doseImg, nachfueller: nachfuellerImg };
@@ -106,7 +107,7 @@ const fields = [
           <div class="field field--check">
             <input id="acceptedTerms" name="acceptedTerms" type="checkbox" required aria-describedby="acceptedTerms-error" />
             <label for="acceptedTerms">
-              Ich habe die <a href="/impressum#datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und bin
+              Ich habe die <a href={withBase('/impressum#datenschutz')} target="_blank">Datenschutzerklärung</a> gelesen und bin
               einverstanden.
             </label>
             <span class="field__error" id="acceptedTerms-error"></span>

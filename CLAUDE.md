@@ -15,4 +15,6 @@ Das Konzept liegt als Claude-Doc: https://claude.ai/artifact/54zTqqKPmNmFFQY7RQC
 - Platzhalter-Bilder sind mit `placeholder-badge` gekennzeichnet, bis das Shooting sie ersetzt.
 - Originalbilder gehören nach `assets-src/` (nicht im Repo), Arbeitsbilder erzeugt `scripts/prepare-images.ps1`.
 - Bestellungen gehen später ans FRITZ ERP (separates Repo `fritz-erp`); die Webseite schreibt nie direkt in dessen Datenbank.
+- Interne Links und Dateien aus `public/` immer über `withBase()` aus `src/config/site.ts` verlinken, sonst funktioniert die Vorschau unter `/fritz-website` nicht.
+- Änderungen von Mitarbeitenden laufen über Branch und Pull Request, nie direkt auf `main`.
 - Nach Änderungen mindestens `npm run build` und `git diff --check`.

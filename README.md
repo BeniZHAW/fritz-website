@@ -20,6 +20,20 @@ npm run build      # Typprüfung + Build nach dist/
 npm run preview    # Build lokal ansehen
 ```
 
+## Vorschau
+
+Jeder Push auf `main` baut die Vorschau automatisch und stellt sie auf GitHub Pages:
+https://benizhaw.github.io/fritz-website/
+
+Die Vorschau ist öffentlich, aber für Suchmaschinen gesperrt (`noindex`). Bestellungen werden dort nicht gesendet.
+Lokal nachbauen: `PUBLIC_PREVIEW=true npm run build && npm run preview`.
+
+## Mitarbeiten
+
+1. Repo klonen, `npm install`, `npm run dev`. Wer mit Claude Code arbeitet: Die Regeln stehen in `CLAUDE.md`.
+2. Nie direkt auf `main` arbeiten: eigenen Branch erstellen und einen Pull Request öffnen.
+3. Beni prüft den Pull Request und führt ihn zusammen. Erst dann geht die Änderung in die Vorschau.
+
 ## Aufbau
 
 ```text

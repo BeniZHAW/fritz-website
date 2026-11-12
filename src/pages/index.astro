@@ -11,7 +11,7 @@ import ProgressDots from '../components/home/ProgressDots.astro';
 import ProductCards from '../components/home/ProductCards.astro';
 import OrderForm from '../components/home/OrderForm.astro';
 import { PRODUCTS } from '../config/shop';
-import { SITE } from '../config/site';
+import { SITE, withBase } from '../config/site';
 
 const argumentNav = [
   { id: 'zutaten', label: 'Natürlich' },
@@ -79,7 +79,7 @@ const productJsonLd = PRODUCTS.map((p) => ({
         FRITZ wird in <strong>Muri AG</strong> gemischt und abgefüllt. Mit viel Handarbeit, in kleinen Mengen,
         damit jede Dose so schmeckt, wie sie soll.
       </p>
-      <p><a href="/unsere-geschichte" class="link-arrow">Unsere Geschichte</a></p>
+      <p><a href={withBase('/unsere-geschichte')} class="link-arrow">Unsere Geschichte</a></p>
     </ArgumentSection>
 
     <ArgumentSection id="vielseitig" index={4} eyebrow="Vielseitig" title="Nicht nur für Pommes." mediaSide="right" tone="alt">
@@ -88,7 +88,7 @@ const productJsonLd = PRODUCTS.map((p) => ({
         FRITZ ist als Pommes-Gewürz gestartet. Heute landet es auf <strong>Poulet, Kartoffeln, Raclette und Rührei</strong>.
       </p>
       <p>Ein Gewürz, das immer passt. Perfekt, wenn du gerade erst mit Kochen anfängst.</p>
-      <p><a href="/rezepte" class="link-arrow">Zu den Rezepten</a></p>
+      <p><a href={withBase('/rezepte')} class="link-arrow">Zu den Rezepten</a></p>
     </ArgumentSection>
   </div>
 

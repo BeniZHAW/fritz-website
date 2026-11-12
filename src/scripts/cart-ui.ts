@@ -6,6 +6,7 @@
  * - kurze Bestaetigung (Toast) nach dem Hinzufuegen
  */
 import { productById, type ProductId } from '../config/shop';
+import { SITE } from '../config/site';
 import { addToCart, cartCount, getCart, onCartChange } from './cart';
 
 const ORDER_SECTION_ID = 'bestellen';
@@ -39,7 +40,7 @@ export function goToCheckout(): void {
   if (target) {
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
-    window.location.href = `/#${ORDER_SECTION_ID}`;
+    window.location.href = SITE.orderAnchor;
   }
 }
 

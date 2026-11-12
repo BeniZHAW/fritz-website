@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import logo from '../assets/images/logo-fritz.png';
-import { NAV, SITE } from '../config/site';
+import { NAV, SITE, withBase } from '../config/site';
 
 interface Props {
   isHome: boolean;
@@ -13,7 +13,7 @@ const current = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 <header class:list={['site-header', { 'is-transparent': isHome }]} data-site-header>
   <div class="site-header__inner container">
-    <a href="/" class="site-header__logo" aria-label="FRITZ Startseite">
+    <a href={withBase('/')} class="site-header__logo" aria-label="FRITZ Startseite">
       <Image src={logo} alt="" width={56} height={56} loading="eager" />
     </a>
 
